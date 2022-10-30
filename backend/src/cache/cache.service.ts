@@ -31,10 +31,10 @@ export class CacheService {
     if (!store) {
       throw new Error('store not defined');
     }
-    let setInRedis = false;
     let value = (store[key] ?? null) as T | null;
     if (value === null) {
       console.log('❌ memory');
+      let setInRedis = false;
       if (enableRedis) {
         const rawValue = await this.redisService.client.get(key);
         if (rawValue === null) {
@@ -70,7 +70,7 @@ export class CacheService {
     console.log('keys', keys);
     if (keys.length > 0) {
       const nDeleted = await this.redisService.client.del(keys);
-      console.log(`delete ${nDeleted} keys`);
+      console.log(`deleted ${nDeleted} keys`);
     }
   }
 }
